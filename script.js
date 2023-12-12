@@ -6,12 +6,15 @@ Array.from(buttons).forEach((button) => {
     button.addEventListener('click', (e) => {
         if (e.target.innerHTML == '=') {
             try {
+                // Evaluate the mathematical expression in the 'string' variable using the new Function constructor
                 const result = new Function('return ' + string)();
+                // Update 'string' with the result and display it in the input field
                 string = result;
                 document.querySelector('input').value = string;
+                // Reset the operator count 'a'
                 a = 0;
             } catch (error) {
-                // Handle the error, e.g., display an error message.
+                // Handle the error if the expression is invalid, e.g., display an error message.
                 string = "";
                 document.querySelector('input').value = "Error";
             }
@@ -22,12 +25,15 @@ Array.from(buttons).forEach((button) => {
         } else {
             console.log(e.target);
             if (e.target.innerHTML == '*' || e.target.innerHTML == '+' || e.target.innerHTML == '/' || e.target.innerHTML == '-') {
+                // Check conditions for adding the operator to the 'string'
                 if (a === 0 || ['*', '+', '/', '-'].indexOf(string[string.length - 1]) === -1) {
+                     // Concatenate the operator to the 'string' and update the input field
                     string = string + e.target.innerHTML;
                     document.querySelector('input').value = string;
                 }
                 a++;
             } else {
+                 // If the clicked button is a digit or another character, add it to the 'string' and update the input field
                 string = string + e.target.innerHTML;
                 document.querySelector('input').value = string;
             }
